@@ -45,21 +45,23 @@ public class Field {
 				if (isComputerField = true) {
 
 					if (cells[i][j] == 1) {
-						g.setColor(Color.DARK_GRAY);
+						g.setColor(Color.RED);
 						g.fillRect(leftIndent + j * cellSize, topIndent + i * cellSize, cellSize, cellSize);
-						if (cells[i][j] == 2) {
-							g.setColor(Color.YELLOW);
-							g.fillRect(leftIndent + j * cellSize, topIndent + i * cellSize, cellSize, cellSize);
-						}
-						if (cells[i][j] == 3) {
-							g.setColor(Color.MAGENTA);
-							g.fillRect(leftIndent + j * cellSize, topIndent + i * cellSize, cellSize, cellSize);
-						}
-					} /*
-						 * else if(cells[i][j] == -1){ g.setColor(Color.RED); g.fillOval(leftIndent + j
-						 * * cellSize, topIndent + i * cellSize, cellSize, cellSize); }
-						 */
+					}
 				}
+				if (cells[i][j] == 2) {
+					g.setColor(Color.YELLOW);
+					g.fillRect(leftIndent + j * cellSize, topIndent + i * cellSize, cellSize, cellSize);
+				}
+				if (cells[i][j] == 3) {
+					g.setColor(Color.MAGENTA);
+					g.fillRect(leftIndent + j * cellSize, topIndent + i * cellSize, cellSize, cellSize);
+
+				} 
+					 if(cells[i][j] == -2){ g.setColor(Color.BLACK); g.fillOval(leftIndent + j
+					 *  cellSize, topIndent + i * cellSize, cellSize, cellSize); }
+					 
+
 			}
 		}
 
@@ -82,9 +84,7 @@ public class Field {
 		} else if (cells[y][x] == 2 || cells[y][x] == 3 || cells[y][x] == -2) {
 			return 1;
 		}
-		if (cells[y][x] < 0) {
-			return 1;
-		} else {
+	else {
 			cells[y][x] = -2;
 			return 0;
 		}
