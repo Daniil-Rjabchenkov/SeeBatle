@@ -32,7 +32,7 @@ for(int i = 0; i < len; i++){
 x -= dirX;
 y -= dirY;
 cells[y][x] = 1;
-surroundWithBombs(x, y, cells);
+surroundWithBombs(x, y, cells, -1);
 }
 
 }
@@ -89,12 +89,12 @@ canSurroundWithBomb = false;
 return canSurroundWithBomb;
 }
 
-public void surroundWithBombs(int x, int y, int[][] cells){
+public void surroundWithBombs(int x, int y, int[][] cells, int bombType){
 for(int i = -1; i <= 1; i++){
 for(int j = -1; j <= 1; j ++){
 if(!isOutOfBounds(x + j, y + i)){
-if (cells[y + i][x + j] != 1) {
-cells[y + i][x + j] = -1;
+if (cells[y + i][x + j] < 1) {
+cells[y + i][x + j] = bombType;
 }
 }
 }
@@ -119,6 +119,7 @@ public void kill(int[][] cells) {
 	if(isKilled(cells)) {
 		for(int i = 0; i < len; i++) {
 			cells[y][x] = 3;
+			surroundWithBombs(x, y, cells, -2);
 			y += dirY;
 			x += dirX;
 		}
