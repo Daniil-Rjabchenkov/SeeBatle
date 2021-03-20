@@ -42,7 +42,7 @@ public class Field {
 	public void paintField(Graphics g) {
 		for (int i = 0; i < fieldSize; i++) {
 			for (int j = 0; j < fieldSize; j++) {
-				if (isComputerField = true) {
+				if (isComputerField != true) {
 
 					if (cells[i][j] == 1) {
 						g.setColor(Color.RED);
@@ -81,7 +81,10 @@ public class Field {
 			searchKilledShip();
 			return 1;
 
-		} else if (cells[y][x] == 2 || cells[y][x] == 3 || cells[y][x] == -2) {
+		} else if(cells[y][x] == 2) {
+			return 2;
+		}
+		else if ( cells[y][x] == 3 || cells[y][x] == -2) {
 			return 1;
 		}
 	else {
@@ -89,6 +92,19 @@ public class Field {
 			return 0;
 		}
 	}
+	
+	public int countDamagedShipCells() {
+		int count = 0;
+		for(int i = 0; i < fieldSize; i++) {
+			for(int j = 0; j < fieldSize; j++) {
+				if(cells[i][j] == 2) {
+					count++;
+				}
+			}
+		}
+		return count;
+	}
+	
 
 	public void searchKilledShip() {
 		for (int i = 0; i < 10; i++) {

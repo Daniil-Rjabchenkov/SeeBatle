@@ -1,8 +1,8 @@
 import java.util.Random;
 
 public class Game {
-	int playerLeftIndent, computerLeftIndent, topIndent, centerIndent, fieldSize, cellSize;
-
+	int playerLeftIndent, computerLeftIndent, topIndent, centerIndent, fieldSize, cellSize, dirX, dirY,x, y;
+Random rn = new Random();
 	Field playerField, computerField;
 
 	Game() {
@@ -18,13 +18,62 @@ public class Game {
 
 	}
 
+	
+	
+	
+	public void chooseDirection() {
+		
+		int dir = rn.nextInt(4);
+
+		switch (dir) {
+		case 0:
+			dirX = -1;
+			dirY = 0;
+			break;
+
+		case 1:
+			dirX = 0;
+			dirY = -1;
+			break;
+
+		case 3:
+			dirX = 1;
+			dirY = 0;
+
+		case 4:
+			dirX = 0;
+			dirY = 1;
+
+		default:
+			break;
+
+		}
+
+	}
 	public void computerTurn() {
 		Random rn = new Random();
-		int x = rn.nextInt(10);
-		int y = rn.nextInt(10);
-		while (playerField.shoot(x, y) > 0) {
-			x = rn.nextInt(10);
-			y = rn.nextInt(10);
+		 x = rn.nextInt(10);
+		 y = rn.nextInt(10);
+		int code;
+		while( (code = playerField.shoot(x, y)) > 0) {
+			int damagedCount = playerField.countDamagedShipCells();
+			
+			if(damagedCount > 0 ) {
+				if(damagedCount == 1) {
+					chooseDirection();
+					if(x + dirX >= 0 && x + dirX < 10 && y + dirY >= 0 && y + dirY < 10){
+						x += dirX;
+						y += dirY;
+						
+					}
+				}
+				
+				
+			}else {
+				
+			
+			}
+			
 		}
 
 	}
