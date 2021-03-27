@@ -1,46 +1,70 @@
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.Timer;
+import java.awt.Font;
 
 public class Panel extends JPanel {
 	Game game;
 	Timer tm;
+	Font font;
 
 	Panel() {
-		game = new Game();
 		setLayout(null);
-		JButton nGame = new JButton("Новая игра");
-		nGame.setBounds(500, 700, 200, 50);
-		add(nGame);
-		nGame.addActionListener(new ActionListener() {
+		game = new Game();
+
+// tm = new Timer(100, new ActionListener() {
+//
+// @Override
+// public void actionPerformed(ActionEvent e) {
+// // TODO Auto-generated method stub
+// repaint();
+// }
+// });
+// tm.start();
+		repaint();
+		font = new Font("sans-serif", 2, 40);
+		JButton nGameBtn = new JButton("New Game");
+		nGameBtn.setBounds(500, 700, 200, 50);
+		add(nGameBtn);
+		nGameBtn.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				game = new Game();
 				repaint();
 			}
 		});
-		add(nGame);
-		JButton endGame = new JButton("Конец игры");
-		endGame.setBounds(1300, 700, 200, 50);
-		add(endGame);
-		endGame.addActionListener(new ActionListener() {
+		JButton exitBtn = new JButton("Exit");
+		exitBtn.setBounds(1250, 700, 200, 50);
+		add(exitBtn);
+		exitBtn.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				System.exit(0);
 			}
 		});
-		add(endGame);
-		repaint();
+
 	}
 
 	public void paint(Graphics g) {
 		super.paint(g);
 		game.computerField.paintField(g);
 		game.playerField.paintField(g);
+		if (game.computerWin()) {
+			int x = game.computerLeftIndent - game.centerIndent;
+			int y = game.topIndent + game.fieldSize * game.cellSize + 50;
+			g.setFont(font);
+			g.drawString("к сожелению вы проиграли", x, y);
+		} else if (game.playerWin()) {
+			int x = game.computerLeftIndent - game.centerIndent;
+			int y = game.topIndent + game.fieldSize * game.cellSize + 50;
+			g.setFont(font);
+			g.drawString("поздравляем вы победили", x, y);
+		}
 	}
 }
